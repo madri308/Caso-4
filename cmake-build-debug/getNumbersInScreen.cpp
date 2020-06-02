@@ -15,7 +15,11 @@ getNumbersInScreen::getNumbersInScreen(std::vector<std::vector<int>> lines) {
         //saleHorizontal
         if(xSalida == 0){
             if(yLlegada == 0){
-                //es diagonal
+                //es diagonal de y a x
+                probabilidadFinal.at(2) = probabilidadFinal.at(2) + 33;
+                probabilidadFinal.at(4) = probabilidadFinal.at(4) + 30;
+                probabilidadFinal.at(5) = probabilidadFinal.at(5) + 33;
+                probabilidadFinal.at(7) = probabilidadFinal.at(7) + 50;
             }else{
                 if(abs((ySalida - yLlegada)) < 10){
                     //es rectaHorizontal
@@ -38,7 +42,11 @@ getNumbersInScreen::getNumbersInScreen(std::vector<std::vector<int>> lines) {
             }
         }else{//saleVertical
             if(xLlegada == 0){
-                //es diagonal
+                //es diagonal de x a y
+                probabilidadFinal.at(2) = probabilidadFinal.at(2) + 33;
+                probabilidadFinal.at(4) = probabilidadFinal.at(4) + 30;
+                probabilidadFinal.at(5) = probabilidadFinal.at(5) + 33;
+                probabilidadFinal.at(7) = probabilidadFinal.at(7) + 50;
             }else{
                 if(abs((xSalida - xLlegada)) < 10){
                     //es rectaVertical
