@@ -1,0 +1,3 @@
+C:/Users/emema/CLionProjects/lineas/cmake-build-debug/CMakeFiles/lineas.dir
+C:/Users/emema/CLionProjects/lineas/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/emema/CLionProjects/lineas/cmake-build-debug/CMakeFiles/rebuild_cache.dir
