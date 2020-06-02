@@ -15,7 +15,7 @@ class getNumbersInScreen {
 public:
     std::unordered_map<int,int> result;
     getNumbersInScreen(std::vector<std::vector<int>> lines);
-    std::unordered_map<int,int> returnResults();
+    std::vector<int> returnResults();
 };
 
 
