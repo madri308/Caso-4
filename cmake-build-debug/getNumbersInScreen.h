@@ -15,7 +15,6 @@ class getNumbersInScreen {
 public:
     std::vector<int> returnResults();
     getNumbersInScreen(std::vector<std::vector<int>> lines);
-    int getRandomLehemer(int x);
 };
 
 
