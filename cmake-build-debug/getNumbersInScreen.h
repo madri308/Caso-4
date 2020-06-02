@@ -13,9 +13,9 @@
 class getNumbersInScreen {
 
 public:
-    std::unordered_map<int,int> result;
-    getNumbersInScreen(std::vector<std::vector<int>> lines);
     std::vector<int> returnResults();
+    getNumbersInScreen(std::vector<std::vector<int>> lines);
+    int getRandomLehemer(int x);
 };
 
 

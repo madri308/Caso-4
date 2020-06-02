@@ -6,7 +6,9 @@
 
 getNumbersInScreen::getNumbersInScreen(std::vector<std::vector<int>> lines) {
     //lines = [[xSalida , ySalida , xLlegada , yLlegada]
+    int xLehemer = 30;
     int probabilidadCero,probabilidadUno,probabilidadDos,probabilidadTres,probabilidadCuatro,probabilidadCinco,probabilidadSeis,probabilidadSiete,probabilidadOcho,probabilidadNueve;
+    probabilidadCero=probabilidadUno=probabilidadDos=probabilidadTres=probabilidadCuatro=probabilidadCinco=probabilidadSeis=probabilidadSiete=probabilidadOcho=probabilidadNueve = 0;
     for(int line = 0 ; line < lines.size() ; line++){
         int xSalida = lines.at(line).at(0);
         int ySalida = lines.at(line).at(1);
@@ -63,4 +65,8 @@ getNumbersInScreen::getNumbersInScreen(std::vector<std::vector<int>> lines) {
 
     }
 
+}
+
+int getNumbersInScreen::getRandomLehemer(int x) {
+    return (75*x)%101 ;
 }

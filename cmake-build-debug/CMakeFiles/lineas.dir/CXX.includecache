@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/Users/emema/CLionProjects/lineas/cmake-build-debug/getNumbersInScreen.h
+vector
+-
+iostream
+-
+unordered_map
+-
+
+C:/Users/emema/CLionProjects/lineas/main.cpp
+iostream
+-
+cmake-build-debug/getNumbersInScreen.h
+C:/Users/emema/CLionProjects/lineas/cmake-build-debug/getNumbersInScreen.h
+
