@@ -7,6 +7,10 @@
 getNumbersInScreen::getNumbersInScreen(std::vector<std::vector<int>> lines) {
     //lines = [[xSalida , ySalida , xLlegada , yLlegada]
     std::vector<int> probabilidadFinal = {0,0,0,0,0,0,0,0,0,0};
+    std::vector<int> probabilidadDiagonales = {0,0,0,0,0,0,0,0,0,0};
+    std::vector<int> probabilidadLineasHorizontales = {0,0,0,0,0,0,0,0,0,0};
+    std::vector<int> probabilidadLineasRectas = {0,0,0,0,0,0,0,0,0,0};
+
     for(int line = 0 ; line < lines.size() ; line++){
         int xSalida = lines.at(line).at(0);
         int ySalida = lines.at(line).at(1);
@@ -16,10 +20,10 @@ getNumbersInScreen::getNumbersInScreen(std::vector<std::vector<int>> lines) {
         if(xSalida == 0){
             if(yLlegada == 0){
                 //es diagonal de y a x
-                probabilidadFinal.at(2) = probabilidadFinal.at(2) + 33;
-                probabilidadFinal.at(4) = probabilidadFinal.at(4) + 30;
-                probabilidadFinal.at(5) = probabilidadFinal.at(5) + 33;
-                probabilidadFinal.at(7) = probabilidadFinal.at(7) + 50;
+                probabilidadDiagonales.at(2) = checkOverflow((probabilidadDiagonales.at(2) + 75));
+                probabilidadDiagonales.at(4) = checkOverflow((probabilidadDiagonales.at(4) + 75);
+                probabilidadDiagonales.at(5) = probabilidadDiagonales.at(5) + 25;
+                probabilidadDiagonales.at(7) = probabilidadDiagonales.at(7) + 50;
             }else{
                 if(abs((ySalida - yLlegada)) < 10){
                     //es rectaHorizontal
@@ -73,9 +77,9 @@ getNumbersInScreen::getNumbersInScreen(std::vector<std::vector<int>> lines) {
 
 }
 
-int getNumbersInScreen::checkOverflow(int originalN) {
-    if(originalN > 100){
-        return 99;
+int getNumbersInScreen::checkOverflow(int originalN), int limiteN) {
+    if(originalN > limiteN){
+        return limiteN;
     }else{
         return originalN;
     }
