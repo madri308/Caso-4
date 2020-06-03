@@ -31,7 +31,7 @@ getNumbersInScreen::getNumbersInScreen(std::vector<std::vector<int>> lines) {
                     probabilidadFinal.at(6) = probabilidadFinal.at(6) + 20;
                     probabilidadFinal.at(7) = probabilidadFinal.at(7) + 50;
                     probabilidadFinal.at(8) = probabilidadFinal.at(8) + 20;
-                    probabilidadFinal.at(9) = probabilidadFinal.at(9) + 20
+                    probabilidadFinal.at(9) = probabilidadFinal.at(9) + 20;
                 }else{
                     //es diagonal
                     probabilidadFinal.at(2) = probabilidadFinal.at(2) + 33;
@@ -71,5 +71,13 @@ getNumbersInScreen::getNumbersInScreen(std::vector<std::vector<int>> lines) {
 
     }
 
+}
+
+int getNumbersInScreen::checkOverflow(int originalN) {
+    if(originalN > 100){
+        return 99;
+    }else{
+        return originalN;
+    }
 }
 
