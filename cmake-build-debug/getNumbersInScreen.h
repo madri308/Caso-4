@@ -13,9 +13,11 @@
 class getNumbersInScreen {
 
 public:
-    std::vector<int> returnResults();
+    std::vector<std::vector<int>> listOfResults = {{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0},{0,0}};
+    int cantidadLineas[10] = {2,1,2,2,3,3,2,2,2,2};
     getNumbersInScreen(std::vector<std::vector<int>> lines);
     int checkOverflow(int originalN, int limiteN);
+    std::vector<std::vector<int>> returnResults();
 };
 
 

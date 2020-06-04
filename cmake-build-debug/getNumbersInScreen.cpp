@@ -2,14 +2,16 @@
 // Created by emema on 6/2/2020.
 //
 
+#include <algorithm>
 #include "getNumbersInScreen.h"
 
 getNumbersInScreen::getNumbersInScreen(std::vector<std::vector<int>> lines) {
     //lines = [[xSalida , ySalida , xLlegada , yLlegada]
     std::vector<int> probabilidadFinal = {0,0,0,0,0,0,0,0,0,0};
-    std::vector<int> probabilidadDiagonales = {0,0,0,0,0,0,0,0,0,0};
+    std::vector<int> probabilidadDiagonalesDecrecientes = {0,0,0,0,0,0,0,0,0,0};
     std::vector<int> probabilidadLineasHorizontales = {0,0,0,0,0,0,0,0,0,0};
-    std::vector<int> probabilidadLineasRectas = {0,0,0,0,0,0,0,0,0,0};
+    std::vector<int> probabilidadLineasVerticales = {0,0,0,0,0,0,0,0,0,0};
+    std::vector<int> probabilidadDiagonalesCreciente = {0,0,0,0,0,0,0,0,0,0};
 
     for(int line = 0 ; line < lines.size() ; line++){
         int xSalida = lines.at(line).at(0);
@@ -18,70 +20,118 @@ getNumbersInScreen::getNumbersInScreen(std::vector<std::vector<int>> lines) {
         int yLlegada = lines.at(line).at(3);
         //saleHorizontal
         if(xSalida == 0){
-            if(yLlegada == 0){
+            if(yLlegada == 0 || yLlegada == 920){
                 //es diagonal de y a x
-                probabilidadDiagonales.at(2) = checkOverflow((probabilidadDiagonales.at(2) + 75));
-                probabilidadDiagonales.at(4) = checkOverflow((probabilidadDiagonales.at(4) + 75);
-                probabilidadDiagonales.at(5) = probabilidadDiagonales.at(5) + 25;
-                probabilidadDiagonales.at(7) = probabilidadDiagonales.at(7) + 50;
+                if(yLlegada == 0){
+                    //creciente
+                    probabilidadDiagonalesCreciente.at(7) = checkOverflow((probabilidadDiagonalesCreciente.at(7) + 75),(75));
+                    probabilidadDiagonalesCreciente.at(2) = checkOverflow((probabilidadDiagonalesCreciente.at(2) + 75),(75));
+                    probabilidadDiagonalesCreciente.at(4) = checkOverflow((probabilidadDiagonalesCreciente.at(4) + 75),(75));
+                    probabilidadDiagonalesCreciente.at(5) = checkOverflow((probabilidadDiagonalesCreciente.at(5) + 37),(75));
+                }else{
+                    //decreciente
+                    probabilidadDiagonalesDecrecientes.at(5) = checkOverflow((probabilidadDiagonalesDecrecientes.at(5) + 75),(75));
+                }
             }else{
                 if(abs((ySalida - yLlegada)) < 10){
                     //es rectaHorizontal
-                    probabilidadFinal.at(0) = probabilidadFinal.at(0) + 25; //Mal, validar que no sean 4 lineas verticales
-                    probabilidadFinal.at(1) = 100;
-                    probabilidadFinal.at(2) = probabilidadFinal.at(2) + 33;
-                    probabilidadFinal.at(3) = probabilidadFinal.at(3) + 25;
-                    probabilidadFinal.at(4) = probabilidadFinal.at(4) + 30;
-                    probabilidadFinal.at(6) = probabilidadFinal.at(6) + 20;
-                    probabilidadFinal.at(7) = probabilidadFinal.at(7) + 50;
-                    probabilidadFinal.at(8) = probabilidadFinal.at(8) + 20;
-                    probabilidadFinal.at(9) = probabilidadFinal.at(9) + 20;
+                    probabilidadLineasHorizontales.at(0) = checkOverflow((probabilidadLineasHorizontales.at(0) + 45),(90)); //Mal, validar que no sean 4 lineas verticales
+                    probabilidadLineasHorizontales.at(1) = checkOverflow((100),(99));
+                    probabilidadLineasHorizontales.at(2) = checkOverflow((probabilidadLineasHorizontales.at(2) + 45),(90));
+                    probabilidadLineasHorizontales.at(3) = checkOverflow((probabilidadLineasHorizontales.at(3) + 30),(90));
+                    probabilidadLineasHorizontales.at(4) = checkOverflow((probabilidadLineasHorizontales.at(4) + 90),(90));
+                    probabilidadLineasHorizontales.at(6) = checkOverflow((probabilidadLineasHorizontales.at(6) + 30),(90));
+                    probabilidadLineasHorizontales.at(7) = checkOverflow((probabilidadLineasHorizontales.at(7) + 90),(90));
+                    probabilidadLineasHorizontales.at(8) = checkOverflow((probabilidadLineasHorizontales.at(8) + 30),(90));
+                    probabilidadLineasHorizontales.at(9) = checkOverflow((probabilidadLineasHorizontales.at(9) + 45),(90));
                 }else{
                     //es diagonal
-                    probabilidadFinal.at(2) = probabilidadFinal.at(2) + 33;
-                    probabilidadFinal.at(4) = probabilidadFinal.at(4) + 30;
-                    probabilidadFinal.at(5) = probabilidadFinal.at(5) + 33;
-                    probabilidadFinal.at(7) = probabilidadFinal.at(7) + 50;
+                    if ((ySalida - yLlegada)<0){
+                        //decrece
+                        probabilidadDiagonalesDecrecientes.at(5) = checkOverflow((probabilidadDiagonalesDecrecientes.at(5) + 80),(80));
+                    }else{
+                        //crece
+                        probabilidadDiagonalesCreciente.at(7) = checkOverflow((probabilidadDiagonalesCreciente.at(7) + 80),(80));
+                        probabilidadDiagonalesCreciente.at(2) = checkOverflow((probabilidadDiagonalesCreciente.at(2) + 80),(80));
+                        probabilidadDiagonalesCreciente.at(4) = checkOverflow((probabilidadDiagonalesCreciente.at(4) + 80),(80));
+                        probabilidadDiagonalesCreciente.at(5) = checkOverflow((probabilidadDiagonalesCreciente.at(5) + 40),(80));
+
+                    }
                 }
             }
         }else{//saleVertical
-            if(xLlegada == 0){
+            if(xLlegada == 0 || xLlegada == 1080){
                 //es diagonal de x a y
-                probabilidadFinal.at(2) = probabilidadFinal.at(2) + 33;
-                probabilidadFinal.at(4) = probabilidadFinal.at(4) + 30;
-                probabilidadFinal.at(5) = probabilidadFinal.at(5) + 33;
-                probabilidadFinal.at(7) = probabilidadFinal.at(7) + 50;
+                if(xLlegada == 0){
+                    //creciente
+                    probabilidadDiagonalesCreciente.at(7) = checkOverflow((probabilidadDiagonalesCreciente.at(7) + 75),(75));
+                    probabilidadDiagonalesCreciente.at(2) = checkOverflow((probabilidadDiagonalesCreciente.at(2) + 75),(75));
+                    probabilidadDiagonalesCreciente.at(4) = checkOverflow((probabilidadDiagonalesCreciente.at(4) + 75),(75));
+                    probabilidadDiagonalesCreciente.at(5) = checkOverflow((probabilidadDiagonalesCreciente.at(5) + 37),(75));
+                }else{
+                    //decreciente
+                    probabilidadDiagonalesDecrecientes.at(5) = checkOverflow((probabilidadDiagonalesDecrecientes.at(5) + 75),(75));
+                }
             }else{
                 if(abs((xSalida - xLlegada)) < 10){
                     //es rectaVertical
-                    probabilidadFinal.at(0) = probabilidadFinal.at(0) + 25; //Mal, validar que no sean 4 lineas verticales
-                    probabilidadFinal.at(1) = 100;
-                    probabilidadFinal.at(2) = probabilidadFinal.at(2) + 33;
-                    probabilidadFinal.at(3) = probabilidadFinal.at(3) + 25;
-                    probabilidadFinal.at(4) = probabilidadFinal.at(4) + 30;
-                    probabilidadFinal.at(6) = probabilidadFinal.at(6) + 20;
-                    probabilidadFinal.at(7) = probabilidadFinal.at(7) + 50;
-                    probabilidadFinal.at(8) = probabilidadFinal.at(8) + 20;
-                    probabilidadFinal.at(9) = probabilidadFinal.at(9) + 20
+                    probabilidadLineasVerticales.at(0) = checkOverflow((probabilidadLineasVerticales.at(0) + 45),(90)); //Mal, validar que no sean 4 lineas verticales
+                    probabilidadLineasVerticales.at(1) = checkOverflow((100),(99));
+                    probabilidadLineasVerticales.at(3) = checkOverflow((probabilidadLineasVerticales.at(3) + 90),(90));
+                    probabilidadLineasVerticales.at(4) = checkOverflow((probabilidadLineasVerticales.at(4) + 90),(90));
+                    probabilidadLineasVerticales.at(6) = checkOverflow((probabilidadLineasVerticales.at(6) + 45),(90));
+                    probabilidadLineasVerticales.at(8) = checkOverflow((probabilidadLineasVerticales.at(8) + 45),(90));
+                    probabilidadLineasVerticales.at(9) = checkOverflow((probabilidadLineasVerticales.at(9) + 45),(90));
                 }else{
-                    //es diagonal
-                    probabilidadFinal.at(2) = probabilidadFinal.at(2) + 33;
-                    probabilidadFinal.at(4) = probabilidadFinal.at(4) + 30;
-                    probabilidadFinal.at(5) = probabilidadFinal.at(5) + 33;
-                    probabilidadFinal.at(7) = probabilidadFinal.at(7) + 50;
+                    if((xSalida - xLlegada)>0){
+                        //crece
+                        probabilidadDiagonalesCreciente.at(7) = checkOverflow((probabilidadDiagonalesCreciente.at(7) + 80),(80));
+                        probabilidadDiagonalesCreciente.at(2) = checkOverflow((probabilidadDiagonalesCreciente.at(2) + 80),(80));
+                        probabilidadDiagonalesCreciente.at(4) = checkOverflow((probabilidadDiagonalesCreciente.at(4) + 80),(80));
+                        probabilidadDiagonalesCreciente.at(5) = checkOverflow((probabilidadDiagonalesCreciente.at(5) + 40),(80));
+                    }else{
+                        //decrece
+                        probabilidadDiagonalesDecrecientes.at(5) = checkOverflow((probabilidadDiagonalesDecrecientes.at(5) + 80),(80));
+                    }
                 }
             }
         }
 
     }
-
+    for(int probabilidad = 0 ; probabilidad < 10 ; probabilidad++){
+        std::vector<int> probabilidadDeCadaNum = {probabilidadDiagonalesCreciente.at(probabilidad),
+                                              probabilidadDiagonalesDecrecientes.at(probabilidad),
+                                              probabilidadLineasHorizontales.at(probabilidad),
+                                              probabilidadLineasVerticales.at(probabilidad)};
+        /*
+        int divisor = 4-std::count(probabilidadDeCadaNum.begin(),probabilidadDeCadaNum.end(),0);
+        if(divisor == 0){
+            divisor = 1;
+        }*/
+        probabilidadFinal.at(probabilidad) = checkOverflow((probabilidadDiagonalesCreciente.at(probabilidad) +
+                                                probabilidadDiagonalesDecrecientes.at(probabilidad) +
+                                                probabilidadLineasHorizontales.at(probabilidad) +
+                                                probabilidadLineasVerticales.at(probabilidad))/cantidadLineas[probabilidad],(99));
+        int randGuiado = rand() % 100;
+        if(randGuiado < probabilidadFinal.at(probabilidad)){
+            listOfResults.at(probabilidad).at(0) = 1;
+            listOfResults.at(probabilidad).at(1) = probabilidadFinal.at(probabilidad);
+        }else{
+            listOfResults.at(probabilidad).at(0) = 0;
+            listOfResults.at(probabilidad).at(1) = probabilidadFinal.at(probabilidad);
+        }
+    }
 }
 
-int getNumbersInScreen::checkOverflow(int originalN), int limiteN) {
+int getNumbersInScreen::checkOverflow(int originalN, int limiteN) {
     if(originalN > limiteN){
         return limiteN;
     }else{
         return originalN;
     }
+}
+
+std::vector<std::vector<int>> getNumbersInScreen::returnResults() {
+    return listOfResults;
 }
 
