@@ -6,6 +6,7 @@
 #include "getNumbersInScreen.h"
 
 getNumbersInScreen::getNumbersInScreen(std::vector<std::vector<int>> lines) {
+    std::srand(time(0));
     //lines = [[xSalida , ySalida , xLlegada , yLlegada]
     std::vector<int> probabilidadFinal, probabilidadDiagonalesDecrecientes, probabilidadLineasHorizontales, probabilidadLineasVerticales, probabilidadDiagonalesCreciente;
     probabilidadFinal =probabilidadDiagonalesDecrecientes=probabilidadLineasHorizontales=probabilidadLineasVerticales=probabilidadDiagonalesCreciente={0,0,0,0,0,0,0,0,0,0};
@@ -33,7 +34,6 @@ getNumbersInScreen::getNumbersInScreen(std::vector<std::vector<int>> lines) {
                 if(abs((ySalida - yLlegada)) < 10){
                     //es rectaHorizontal
                     probabilidadLineasHorizontales.at(0) = checkOverflow((probabilidadLineasHorizontales.at(0) + 90),(180)); //Mal, validar que no sean 4 lineas verticales
-                    probabilidadLineasHorizontales.at(1) = checkOverflow((100),(99));
                     probabilidadLineasHorizontales.at(2) = checkOverflow((probabilidadLineasHorizontales.at(2) + 90),(180));
                     probabilidadLineasHorizontales.at(3) = checkOverflow((probabilidadLineasHorizontales.at(3) + 90),(270));
                     probabilidadLineasHorizontales.at(4) = checkOverflow((probabilidadLineasHorizontales.at(4) + 90),(90));

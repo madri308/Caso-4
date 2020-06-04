@@ -9,6 +9,8 @@
 #include <vector>
 #include <iostream>
 #include <unordered_map>
+#include <cstdlib>
+#include <ctime>
 
 class getNumbersInScreen {
 
